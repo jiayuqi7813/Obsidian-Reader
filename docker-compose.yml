@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   knowledge-base:
-#    image: snowywar/obsidian-reader:amd64
+#    image: snowywar/obsidian-reader:v1.1_amd64
     build:
       context: .
       dockerfile: Dockerfile
