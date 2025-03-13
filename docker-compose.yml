@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  knowledge-base:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - KB_DEFAULT_PATH=/data
+      - KB_PASSWORD=${KB_PASSWORD:-knowledge123}
+    volumes:
+      - ${KB_DATA_PATH:-./data}:/data
+    # Use healthcheck to ensure the application is running properly
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+

@@ -1,0 +1,12 @@
+{
+  "defaultPath": "/Users/snowywar/Library/Mobile Documents/iCloud~md~obsidian/Documents/库",
+  "supportedFileTypes": {
+    "documents": [".md", ".markdown", ".pdf"],
+    "images": [".jpg", ".jpeg", ".png", ".gif", ".svg", ".webp"]
+  },
+  "auth": {
+    "enabled": true,
+    "password": "123"
+  }
+}
+
