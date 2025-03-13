@@ -1,6 +1,4 @@
 "use client"
-
-import type React from "react"
 import { useState, useEffect } from "react"
 import {
     Folder,
@@ -12,11 +10,11 @@ import {
     ImageIcon,
     Menu,
     FileText,
+    Settings,
 } from "lucide-react"
 import { getDirectoryContents } from "@/lib/file-actions"
 import ContentViewer from "./content-viewer"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { DirectoryHelper } from "./directory-helper"
@@ -135,10 +133,6 @@ export default function KnowledgeBase() {
         } finally {
             setIsLoading(false)
         }
-    }
-
-    const handlePathChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setDirectoryPath(e.target.value)
     }
 
     const toggleFolder = (path: string) => {
@@ -287,22 +281,20 @@ export default function KnowledgeBase() {
             )}
         >
             <div className="h-full flex flex-col p-4">
-                <div className="mb-4 flex space-x-2">
-                    <Input value={directoryPath} onChange={handlePathChange} placeholder="Enter directory path" />
-                    <Button onClick={() => loadDirectory(directoryPath)} size="sm">
-                        Load
-                    </Button>
+                <div className="mb-4 flex justify-between items-center">
+                    <h3 className="text-lg font-medium">文件浏览</h3>
                     <Button variant="outline" size="sm" onClick={() => setShowHelper(true)}>
-                        Help
+                        <Settings className="h-4 w-4 mr-2" />
+                        设置
                     </Button>
                 </div>
                 {error && <div className="mb-4 p-2 text-sm text-white bg-red-500 rounded">{error}</div>}
                 <ScrollArea className="flex-1">
-                    {isLoading ? <div className="p-4 text-center">Loading...</div> : <div>{renderTree(structure)}</div>}
+                    {isLoading ? <div className="p-4 text-center">加载中...</div> : <div>{renderTree(structure)}</div>}
                 </ScrollArea>
                 <div className="mt-4 pt-4 border-t">
                     <Button variant="outline" size="sm" className="w-full" onClick={handleLogout}>
-                        Logout
+                        退出登录
                     </Button>
                 </div>
             </div>
@@ -318,22 +310,20 @@ export default function KnowledgeBase() {
                         <SheetTitle>Knowledge Base</SheetTitle>
                     </SheetHeader>
                     <div className="h-full flex flex-col p-4 pt-0">
-                        <div className="mb-4 flex space-x-2">
-                            <Input value={directoryPath} onChange={handlePathChange} placeholder="Enter directory path" />
-                            <Button onClick={() => loadDirectory(directoryPath)} size="sm">
-                                Load
-                            </Button>
+                        <div className="mb-4 flex justify-between items-center">
+                            <h3 className="text-lg font-medium">文件浏览</h3>
                             <Button variant="outline" size="sm" onClick={() => setShowHelper(true)}>
-                                Help
+                                <Settings className="h-4 w-4 mr-2" />
+                                设置
                             </Button>
                         </div>
                         {error && <div className="mb-4 p-2 text-sm text-white bg-red-500 rounded">{error}</div>}
                         <ScrollArea className="flex-1">
-                            {isLoading ? <div className="p-4 text-center">Loading...</div> : <div>{renderTree(structure)}</div>}
+                            {isLoading ? <div className="p-4 text-center">加载中...</div> : <div>{renderTree(structure)}</div>}
                         </ScrollArea>
                         <div className="mt-4 pt-4 border-t">
                             <Button variant="outline" size="sm" className="w-full" onClick={handleLogout}>
-                                Logout
+                                退出登录
                             </Button>
                         </div>
                     </div>
@@ -375,7 +365,14 @@ export default function KnowledgeBase() {
             </div>
 
             {/* Directory Helper Dialog */}
-            <DirectoryHelper isOpen={showHelper} onClose={() => setShowHelper(false)} />
+            <DirectoryHelper
+                isOpen={showHelper}
+                onClose={() => setShowHelper(false)}
+                directoryPath={directoryPath}
+                onDirectoryChange={setDirectoryPath}
+                onLoadDirectory={loadDirectory}
+                onLogout={handleLogout}
+            />
         </div>
     )
 }
