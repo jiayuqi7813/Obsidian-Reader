@@ -2,9 +2,10 @@ version: '3.8'
 
 services:
   knowledge-base:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: snowywar/obsidian-reader:latest
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - "3000:3000"
