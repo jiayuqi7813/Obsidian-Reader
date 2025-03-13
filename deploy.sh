@@ -3,7 +3,7 @@
 # Knowledge Base Docker deployment script
 
 # Default values
-DEFAULT_PASSWORD="123456"
+DEFAULT_PASSWORD="knowledge123"
 DEFAULT_DATA_PATH="./data"
 DEFAULT_PORT="3000"
 
@@ -58,6 +58,23 @@ if [ "$PORT" != "$DEFAULT_PORT" ]; then
     echo "Setting custom port: $PORT..."
     sed -i.bak "s/- \"$DEFAULT_PORT:$DEFAULT_PORT\"/- \"$PORT:$DEFAULT_PORT\"/" docker-compose.yml
     rm docker-compose.yml.bak 2>/dev/null || true
+fi
+
+# 确保 Docker 支持 IPv6
+echo "Enabling IPv6 support for Docker..."
+if [ ! -f /etc/docker/daemon.json ]; then
+  sudo mkdir -p /etc/docker
+  echo '{
+  "ipv6": true,
+  "fixed-cidr-v6": "2001:db8:1::/64"
+}' | sudo tee /etc/docker/daemon.json
+  sudo systemctl restart docker
+elif ! grep -q "ipv6" /etc/docker/daemon.json; then
+  # 备份当前配置
+  sudo cp /etc/docker/daemon.json /etc/docker/daemon.json.bak
+  # 添加 IPv6 配置
+  sudo jq '. + {"ipv6": true, "fixed-cidr-v6": "2001:db8:1::/64"}' /etc/docker/daemon.json.bak | sudo tee /etc/docker/daemon.json
+  sudo systemctl restart docker
 fi
 
 # Start the containers

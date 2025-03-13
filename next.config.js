@@ -2,6 +2,10 @@
 const nextConfig = {
     reactStrictMode: true,
     output: "standalone", // Important for Docker deployment
+    experimental: {
+        // Add IPv6 support
+        ipv6: true
+    },
     // Allow cross-origin requests for PDF.js
     async headers() {
         return [

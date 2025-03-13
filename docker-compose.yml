@@ -2,13 +2,14 @@ version: '3.8'
 
 services:
   knowledge-base:
-    image: snowywar/obsidian-reader:amd64
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
+#    image: snowywar/obsidian-reader:amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - "3000:3000"
+      - "[::]:3000:3000"
     environment:
       - KB_DEFAULT_PATH=/data
       - KB_PASSWORD=${KB_PASSWORD:-knowledge123}
