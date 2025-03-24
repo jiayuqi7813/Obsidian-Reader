@@ -2,6 +2,11 @@
 ## 介绍
 最近一直在用Obsidian-browser去做笔记，然后用webdav去做备份，由于我主力是mac，手机是安卓，我又想通过手机看笔记记录，还不想手机做同步占用存储。于是就诞生了该项目。
 
+## 镜像地址
+https://hub.docker.com/r/snowywar/obsidian-reader/tags
+最新的是 snowywar/obsidian-reader:v1.2
+修复了弱鉴权和nextjs漏洞问题。
+
 ## 最佳实践
 1. 本地使用Obsidian做笔记
 2. 有个nas通过webdav进行笔记同步，此处我用的是 威联通 做的webdav，通过 Remotely Sync 插件进行同步 (可参考：https://zhuanlan.zhihu.com/p/670278442)
