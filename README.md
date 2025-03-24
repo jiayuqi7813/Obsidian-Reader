@@ -4,7 +4,9 @@
 
 ## 镜像地址
 https://hub.docker.com/r/snowywar/obsidian-reader/tags
+
 最新的是 snowywar/obsidian-reader:v1.2
+
 修复了弱鉴权和nextjs漏洞问题。
 
 ## 最佳实践
