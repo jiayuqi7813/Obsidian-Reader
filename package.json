@@ -47,7 +47,7 @@
     "fs": "latest",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
-    "next": "15.1.0",
+    "next": "15.2.3",
     "next-themes": "^0.4.4",
     "path": "latest",
     "pdfjs-dist": "^4.10.38",
